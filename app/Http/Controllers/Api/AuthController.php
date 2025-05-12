@@ -13,9 +13,9 @@ class AuthController extends Controller
 {
     use ApiResponses;
 
-    public function login(ApiLoginRequest $request)
+    public function login(ApiLoginRequest $apiLoginRequest)
     {
-        $credentials = $request->validate([
+        $credentials = $apiLoginRequest->validate([
             'email' => ['email', 'string', 'required'],
             'password' => ['min:8', 'string', 'required'],
         ]);
@@ -24,7 +24,7 @@ class AuthController extends Controller
             return $this->error('Invalid credentials', 401);
         }
 
-        $user = User::firstWhere('email', $request->email);
+        $user = User::firstWhere('email', $apiLoginRequest->email);
 
         return $this->success('Authenticated', ['token' => $user->createToken('API token for '.$user->email)->plainTextToken]);
     }
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $userData['password'] = bcrypt($userData['password']);
 
-        $user = User::create($userData);
+        User::create($userData);
 
         return $this->ok(['register']);
     }
