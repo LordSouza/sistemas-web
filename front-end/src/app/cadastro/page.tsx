@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { InputEmail, InputSenha } from "../components/input";
+import { InputEmail, InputNome, InputSenha } from "../../components/input";
 
-interface ILoginForm {
+interface ICadastroForm {
+  nome: string;
   email: string;
   senha: string;
 }
 
-export default function Login() {
-  const { register, handleSubmit } = useForm<ILoginForm>();
+export default function Cadastrar() {
+  const { register, handleSubmit } = useForm<ICadastroForm>();
 
   return (
     <div className="flex min-h-screen gap-10 w-full">
@@ -27,6 +28,11 @@ export default function Login() {
 
         <div className="flex flex-col gap-[15px] w-[600px] px-[150px]">
           <div className="flex flex-col">
+            <label htmlFor="email">Nome</label>
+            <InputNome {...register("nome")} />
+          </div>
+
+          <div className="flex flex-col">
             <label htmlFor="email">E-mail</label>
             <InputEmail {...register("email")} />
           </div>
@@ -42,9 +48,9 @@ export default function Login() {
         </div>
 
         <p className="text-sm">
-          Não tem uma conta?{" "}
-          <Link href="/cadastro" className="text-[#3A5B22] no-underline">
-            Cadastrar
+          Tem uma conta?{" "}
+          <Link href="/" className="text-[#3A5B22] no-underline">
+            Login
           </Link>
         </p>
       </form>
