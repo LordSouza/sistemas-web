@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-
 import { useSearchParams } from "next/navigation";
 import { InputEmail, InputSenha } from "../../../components/input";
+// import { useMutation } from "@tanstack/react-query";
+// import jwt from 'jsonwebtoken';
+// import { setCookie } from "nookies";
 
 interface ILoginForm {
   email: string;
-  senha: string;
+  password: string;
 }
 
 export default function Login() {
@@ -18,7 +20,6 @@ export default function Login() {
 
   const onSubmit = (data: ILoginForm) => {
     console.log("Dados do formulário:", data);
-    window.location.href = paramRedirect;
   };
 
   return (
@@ -45,7 +46,7 @@ export default function Login() {
 
           <div className="flex flex-col">
             <label htmlFor="senha">Senha</label>
-            <InputSenha {...register("senha")} />
+            <InputSenha {...register("password")} />
           </div>
 
           <button
