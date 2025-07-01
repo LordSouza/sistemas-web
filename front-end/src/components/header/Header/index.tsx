@@ -51,7 +51,7 @@ export const Header = () => {
           <Link href={"/home"} className="hover:text-[#ffffff94]">
             Home
           </Link>
-          <Link href={"/home"} className="hover:text-[#ffffff94]">
+          <Link href={"/plantas"} className="hover:text-[#ffffff94]">
             Plantas
           </Link>
         </div>
