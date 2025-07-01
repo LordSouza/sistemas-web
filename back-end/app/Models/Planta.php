@@ -22,7 +22,7 @@ class Planta extends Model
     protected $fillable = [
         'name',
         'adubo',
-        'frequecia',
+        'frequencia',
         'quantidade_frequencia',
     ];
 
