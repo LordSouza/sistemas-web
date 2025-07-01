@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const Footer = () => {
+export const Header = () => {
   return (
     <section className="h-[100px] rounded-b-2xl gap-[50px] bg-[#3A5B22] w-full flex items-center px-[30px]">
       <img
