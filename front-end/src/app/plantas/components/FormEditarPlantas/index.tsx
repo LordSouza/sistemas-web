@@ -14,53 +14,72 @@ interface IFormPlanta {
   dias: number;
 }
 
-interface FormAddPlantaProps {
+interface FormEditarPlantaProps {
+  planta: {
+    id: number;
+    name: string;
+    adubo: string;
+    frequencia: string;
+    quantidade_frequencia: number;
+  };
   onClose: () => void;
   onSucess: () => void;
 }
 
-export default function FormAddPlanta({
+export default function FormEditarPlantas({
+  planta,
   onClose,
   onSucess,
-}: FormAddPlantaProps) {
-  const { register, handleSubmit, reset } = useForm<IFormPlanta>();
+}: FormEditarPlantaProps) {
+  const { register, handleSubmit } = useForm<IFormPlanta>({
+    defaultValues: {
+      nome: planta.name,
+      adubo: planta.adubo,
+      frequencia: planta.frequencia.toString(),
+      dias: planta.quantidade_frequencia,
+    },
+  });
 
-  const { mutate, error } = useMutation({
-    mutationFn: async (planta: IFormPlanta) => {
+  const { mutate } = useMutation({
+    mutationFn: async (dados: IFormPlanta) => {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://127.0.0.1:8000/api/planta", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: planta.nome,
-          adubo: planta.adubo,
-          frequencia: planta.frequencia.toString(),
-          quantidade_frequencia: planta.dias,
-        }),
-      });
+      console.log(dados)
+
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/planta/${planta.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            name: dados.nome,
+            adubo: dados.adubo,
+            frequencia: dados.frequencia,
+            quantidade_frequencia: dados.dias,
+          }),
+        }
+      );
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Erro ao cadastrar planta");
-      }
+      if (!response.ok)
+        throw new Error(data.message || "Erro ao atualizar planta");
 
       return data;
     },
     onSuccess: () => {
-      alert("Planta adicionada com sucesso!");
-      reset();
+      alert("Planta atualizada com sucesso!");
       onClose();
       onSucess();
     },
   });
 
   const onSubmit = (data: IFormPlanta) => {
+    console.log(data);
     mutate(data);
   };
 
@@ -69,13 +88,13 @@ export default function FormAddPlanta({
       <div className="bg-white w-[400px] rounded-xl p-6 relative shadow-lg">
         <button
           onClick={onClose}
-          className="absolute top-4 cursor-pointer right-4 text-gray-500 text-xl font-bold hover:text-red-500"
+          className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
         >
           <Image src={iconClose} alt="Fechar" width={20} height={20} />
         </button>
 
         <h2 className="text-xl font-semibold mb-4 text-center">
-          Adicionar Planta
+          Editar Planta
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -103,7 +122,7 @@ export default function FormAddPlanta({
             type="submit"
             className="mt-2 bg-green-600 text-white py-2 rounded hover:bg-green-700"
           >
-            Adicionar
+            Salvar Alterações
           </button>
         </form>
       </div>

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
 export const Header = () => {
   const router = useRouter();
+  const pathname = usePathname(); 
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -39,6 +40,11 @@ export const Header = () => {
     logoutMutation.mutate();
   };
 
+  const linkClasses = (route: string) =>
+    `hover:text-[#ffffff94] pb-1 ${
+      pathname === route ? "border-b-2 border-white font-semibold" : ""
+    }`;
+
   return (
     <section className="h-[100px] rounded-b-2xl gap-[50px] bg-[#3A5B22] w-full flex items-center px-[30px]">
       <img
@@ -48,10 +54,10 @@ export const Header = () => {
       />
       <div className="flex justify-between w-full items-center text-[#fff] ">
         <div className="flex justify-start w-full gap-[20px]">
-          <Link href={"/home"} className="hover:text-[#ffffff94]">
+          <Link href={"/home"} className={linkClasses("/home")}>
             Home
           </Link>
-          <Link href={"/plantas"} className="hover:text-[#ffffff94]">
+          <Link href={"/plantas"} className={linkClasses("/plantas")}>
             Plantas
           </Link>
         </div>

@@ -64,18 +64,32 @@ class PlantaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Planta $planta)
+    public function update(Request $request, $id)
     {
-        //
+        $planta = Planta::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => ['string', 'required'],
+            'frequencia' => ['string', 'required'],
+            'quantidade_frequencia' => ['integer', 'required'],
+            'adubo' => ['string', 'required'],
+        ]);
+
+        error_log($planta);
+        $planta->update($validatedData);
+
+        error_log($request);
+
+        return response()->json(['message' => 'Planta atualizada com sucesso!', 'planta' => $planta], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        dd($request);
-        $deleted = DB::table('planta')->where('id', '=', $request)->delete();
+        $deleted = DB::table('planta')->where('id', '=', $id)->delete();
+
         return $this->ok('deleted');
     }
 }
