@@ -1,7 +1,10 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { InputDias, InputNomePlanta } from "../../../../components/input";
+import {
+  InputQuantFrequencia,
+  InputNomePlanta,
+} from "../../../../components/input";
 import Image from "next/image";
 import iconClose from "../../../../assets/close.png";
 import { useMutation } from "@tanstack/react-query";
@@ -11,7 +14,7 @@ interface IFormPlanta {
   nome: string;
   adubo: string;
   frequencia: string;
-  dias: number;
+  quant_frequencia: number;
 }
 
 interface FormAddPlantaProps {
@@ -40,7 +43,7 @@ export default function FormAddPlanta({
           name: planta.nome,
           adubo: planta.adubo,
           frequencia: planta.frequencia.toString(),
-          quantidade_frequencia: planta.dias,
+          quantidade_frequencia: planta.quant_frequencia,
         }),
       });
 
@@ -95,8 +98,8 @@ export default function FormAddPlanta({
           </div>
 
           <div className="flex flex-col">
-            <label>Dias</label>
-            <InputDias {...register("dias")} />
+            <label>Quantidade Frequência</label>
+            <InputQuantFrequencia {...register("quant_frequencia")} />
           </div>
 
           <button

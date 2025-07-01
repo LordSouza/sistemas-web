@@ -89,7 +89,10 @@ export default function CalendarioHome() {
       return (
         <ul className="text-xs mt-1">
           {plantasNoDia.map((p) => (
-            <li key={p.id} className="bg-[#8daf89] rounded py-1 my-0.5">
+            <li
+              key={p.id}
+              className="bg-[#defacd] border-[#84aa69] border-[1px] rounded py-1 my-0.5"
+            >
               {p.name}
             </li>
           ))}
@@ -101,7 +104,7 @@ export default function CalendarioHome() {
   }
 
   return (
-    <div className="p-4 flex flex-col items-center justify-center">
+    <div className="w-full p-4 flex flex-col items-center justify-center">
       <h2 className="text-xl font-semibold mb-4">Calendário</h2>
       <Calendar
         onChange={onChange}

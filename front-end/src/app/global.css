@@ -1,6 +1,37 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 html,
 body {
-    height: 100%;
+  height: 100%;
+}
+
+.react-calendar {
+  border-radius: 10px !important;
+  font-family: "Inter", sans-serif;
+  width: 800px !important;
+  padding: 20px;
+  background-color: #f8faf7 !important;
+}
+
+.react-calendar__month-view__weekdays {
+  text-decoration: none !important;
+}
+
+.react-calendar__tile {
+  width: 100px !important;
+}
+
+.react-calendar__tile--now {
+  background: #e0ffe0;
+}
+
+.react-calendar__tile--active {
+  background: #84aa69 !important;
+  color: #333 !important;
+  border-radius: 10px;
+}
+
+.react-calendar__navigation__label {
+  font-weight: bold;
+  color: #333;
 }

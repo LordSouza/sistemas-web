@@ -20,7 +20,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen gap-10 w-full">
       <Header />
       <section className="w-full flex justify-around">
-        <div><CalendarioHome/></div>
+        <CalendarioHome/>
       </section>
     </div>
   );
